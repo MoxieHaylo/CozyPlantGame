@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
-using Newtonsoft.Json;
+using Newtonsoft.Json; 
 
 public class GetLocalWeatherData : MonoBehaviour
 {
     #region Weather API Key
-    const string OpenWeatherAPIKey = "";
+    const string OpenWeatherAPIKey = "ad376b17409c1eb42671a2592c7fd554 ";
     #endregion 
 
     public enum EPhase
@@ -21,6 +22,7 @@ public class GetLocalWeatherData : MonoBehaviour
         Failed,
         Succeeded
     }
+    public EPhase Phase { get; private set; } = EPhase.NotStarted;
 
     #region Classes to make Json info usuable
     //created by Iain McManus
@@ -139,22 +141,22 @@ public class GetLocalWeatherData : MonoBehaviour
     const string URL_GetWeatherData = "http://api.openweathermap.org/data/2.5/weather";
 
     public Text weatherText;
-    public Text timeText;
-    public int sysHour = System.DateTime.Now.Hour;
-
-    public bool DayTime = true;
-
-    public EPhase Phase { get; private set; } = EPhase.NotStarted;
 
     string PublicIP;
     geoPluginResponse GeographicData;
     OpenWeatherResponse WeatherData;
     bool ShownWeatherInfo = false;
 
-    // Start is called before the first frame update
+    public bool Clear = false;
+    public bool Clouds = false;
+    public bool Drizzle = false;
+    public bool Rain = false;
+    public bool Thunder = false;
+    public bool Snow = false;
+    public bool Atmosphere = false;
+
     void Start()
     {
-        //Debug.Log($"This is what we are printing{sysHour}");
         if (string.IsNullOrEmpty(OpenWeatherAPIKey))
         {
             Debug.LogError("No API key set for https://openweathermap.org/ probs go fix that?");
@@ -164,7 +166,6 @@ public class GetLocalWeatherData : MonoBehaviour
         StartCoroutine(GetWeatherStage_1_GetIP());
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Phase == EPhase.Succeeded && !ShownWeatherInfo)
@@ -175,179 +176,83 @@ public class GetLocalWeatherData : MonoBehaviour
             {
                 Debug.Log($"{condition.Group}: {condition.Description}");
 
-                if (condition.Description == "clear sky")
+                if (condition.Group=="Clear")
                 {
                     weatherText.text = "Clear skys";
+                    Clear = true;
+                    Clouds = false;
+                    Drizzle = false;
+                    Rain = false;
+                    Thunder = false;
+                    Snow = false;
+                    Atmosphere = false;
                 }
-                //clouds
-                else if (DayTime=true &&
-                         condition.Description == "few clouds" ||
-                         condition.Description == "scattered clouds" ||
-                         condition.Description == "broken clouds" ||
-                         condition.Description == "few clouds: 11-25%" ||
-                         condition.Description == "scattered clouds: 25-50%" ||
-                         condition.Description == "broken clouds: 51-84%" ||
-                         condition.Description == "overcast clouds: 85-100%")
+                else if(condition.Group=="Clouds")
                 {
-                    weatherText.text = "There are clouds today";
-                    Debug.Log("this should be daytime clouds true");
+                    weatherText.text = "Clouds";
+                    Clear = false;
+                    Clouds = true;
+                    Drizzle = false;
+                    Rain = false;
+                    Thunder = false;
+                    Snow = false;
+                    Atmosphere = false;
                 }
-                else if (DayTime=false &&
-                         condition.Description == "few clouds" ||
-                         condition.Description == "scattered clouds" ||
-                         condition.Description == "broken clouds" ||
-                         condition.Description == "few clouds: 11-25%" ||
-                         condition.Description == "scattered clouds: 25-50%" ||
-                         condition.Description == "broken clouds: 51-84%" ||
-                         condition.Description == "overcast clouds: 85-100%")
+                else if(condition.Group=="Drizzle")
                 {
-                    weatherText.text = "There are clouds tonight";
-                    Debug.Log("this should be night clouds true");
+                    weatherText.text = "Drzzle";
+                    Clear = false;
+                    Clouds = false;
+                    Drizzle = true;
+                    Rain = false;
+                    Thunder = false;
+                    Snow = false;
+                    Atmosphere = false;
                 }
-                //light rain
-                else if (DayTime=true &&
-                         condition.Description == "shower rain" ||
-                         condition.Description == "light intensity drizzle" ||
-                         condition.Description == "drizzle" ||
-                         condition.Description == "heavy intensity drizzle" ||
-                         condition.Description == "light instensity drizzle rain" ||
-                         condition.Description == "shower and rain drizzle" ||
-                         condition.Description == "shower drizzle")
+                else if(condition.Group=="Rain")
                 {
-                    weatherText.text = "It's drizzling today";
+                    weatherText.text = "Rain";
+                    Clear = false;
+                    Clouds = false;
+                    Drizzle = false;
+                    Rain = true;
+                    Thunder = false;
+                    Snow = false;
+                    Atmosphere = false;
                 }
-                else if (DayTime==false &&
-                         condition.Description == "shower rain" ||
-                         condition.Description == "light intensity drizzle" ||
-                         condition.Description == "drizzle" ||
-                         condition.Description == "heavy intensity drizzle" ||
-                         condition.Description == "light instensity drizzle rain" ||
-                         condition.Description == "shower and rain drizzle" ||
-                         condition.Description == "shower drizzle")
+                else if(condition.Group=="Thunderstorm")
                 {
-                    weatherText.text = "It's drizzling tonight";
+                    weatherText.text = "Thunder";
+                    Clear = false;
+                    Clouds = false;
+                    Drizzle = false;
+                    Rain = false;
+                    Thunder = true;
+                    Snow = false;
+                    Atmosphere = false;
                 }
-                //rain
-                else if (DayTime==true &&
-                         condition.Description == "light rain" ||
-                         condition.Description == "moderate rain" ||
-                         condition.Description == "heavy intensity rain" ||
-                         condition.Description == "very heavy rain" ||
-                         condition.Description == "extreme rain" ||
-                         condition.Description == "freezing rain" ||
-                         condition.Description == "light intensity shower rain" ||
-                         condition.Description == "shower rain" ||
-                         condition.Description == "heavy intensity shower rain" ||
-                         condition.Description == "ragged shower rain")
+                else if(condition.Group=="Snow")
                 {
-                    weatherText.text = "It's raining today";
+                    weatherText.text = "Snow";
+                    Clear = false;
+                    Clouds = false;
+                    Drizzle = false;
+                    Rain = false;
+                    Thunder = false;
+                    Snow = true;
+                    Atmosphere = false;
                 }
-                else if (DayTime==false &&
-                         condition.Description == "light rain" ||
-                         condition.Description == "moderate rain" ||
-                         condition.Description == "heavy intensity rain" ||
-                         condition.Description == "very heavy rain" ||
-                         condition.Description == "extreme rain" ||
-                         condition.Description == "freezing rain" ||
-                         condition.Description == "light intensity shower rain" ||
-                         condition.Description == "shower rain" ||
-                         condition.Description == "heavy intensity shower rain" ||
-                         condition.Description == "ragged shower rain")
+                else if(condition.Group=="Atmosphere")
                 {
-                    weatherText.text = "It's raining tonight";
+                    weatherText.text = "Atmosphere";
+                    Clear = false;
+                    Clouds = false;
+                    Drizzle = false;
+                    Rain = false;
+                    Thunder = false;
+                    Snow = false;
+                    Atmosphere = true;
                 }
-                //thunderstorm
-                else if (DayTime == true &&
-                         condition.Description == "thunderstorm with light rain" ||
-                         condition.Description == "thunderstorm with rain" ||
-                         condition.Description == "thunderstorm with heavy rain" ||
-                         condition.Description == "light thunderstorm" ||
-                         condition.Description == "thunderstorm" ||
-                         condition.Description == "heavy thunderstorm" ||
-                         condition.Description == "ragged thunderstorm" ||
-                         condition.Description == "thunderstorm with light drizzle" ||
-                         condition.Description == "thunderstorm with drizzle" ||
-                         condition.Description == "thunderstorm with heavy drizzle")
-                {
-                    weatherText.text = "There is a thunderstorm today";
-                }
-                else if (DayTime == false &&
-                         condition.Description == "thunderstorm with light rain" ||
-                         condition.Description == "thunderstorm with rain" ||
-                         condition.Description == "thunderstorm with heavy rain" ||
-                         condition.Description == "light thunderstorm" ||
-                         condition.Description == "thunderstorm" ||
-                         condition.Description == "heavy thunderstorm" ||
-                         condition.Description == "ragged thunderstorm" ||
-                         condition.Description == "thunderstorm with light drizzle" ||
-                         condition.Description == "thunderstorm with drizzle" ||
-                         condition.Description == "thunderstorm with heavy drizzle")
-                {
-                    weatherText.text = "There is a thunderstorm tonight";
-                }
-                //snow
-                else if (DayTime == true &&
-                         condition.Description == "snow" ||
-                         condition.Description == "light snow" ||
-                         condition.Description == "heavy snow" ||
-                         condition.Description == "sleet" ||
-                         condition.Description == "light shower sleet" ||
-                         condition.Description == "shower sleet" ||
-                         condition.Description == "light rain and snow" ||
-                         condition.Description == "rain and snow" ||
-                         condition.Description == "light shower snow" ||
-                         condition.Description == "shower snow" ||
-                         condition.Description == "heavy shower snow")
-                {
-                    weatherText.text = "It's snowing today";
-                }
-                else if (DayTime == false &&
-                         condition.Description == "snow" ||
-                         condition.Description == "light snow" ||
-                         condition.Description == "heavy snow" ||
-                         condition.Description == "sleet" ||
-                         condition.Description == "light shower sleet" ||
-                         condition.Description == "shower sleet" ||
-                         condition.Description == "light rain and snow" ||
-                         condition.Description == "rain and snow" ||
-                         condition.Description == "light shower snow" ||
-                         condition.Description == "shower snow" ||
-                         condition.Description == "heavy shower snow")
-                {
-                    weatherText.text = "It's snowing tonight";
-                }
-                //atmospheric
-                else if (DayTime == true &&
-                         condition.Description == "mist" ||
-                         condition.Description == "smoke" ||
-                         condition.Description == "haze" ||
-                         condition.Description == "sand/dust whirls" ||
-                         condition.Description == "fog" ||
-                         condition.Description == "sand" ||
-                         condition.Description == "dust" ||
-                         condition.Description == "volcanic ash" ||
-                         condition.Description == "squalls" ||
-                         condition.Description == "tornado")
-
-                {
-                    weatherText.text = "You have unusual weather today";
-                }
-                else if (DayTime == false &&
-                         condition.Description == "mist" ||
-                         condition.Description == "smoke" ||
-                         condition.Description == "haze" ||
-                         condition.Description == "sand/dust whirls" ||
-                         condition.Description == "fog" ||
-                         condition.Description == "sand" ||
-                         condition.Description == "dust" ||
-                         condition.Description == "volcanic ash" ||
-                         condition.Description == "squalls" ||
-                         condition.Description == "tornado")
-                {
-                    weatherText.text = "You have unusual weather tonight";
-                }
-
-
             }
 
         }
@@ -357,28 +262,36 @@ public class GetLocalWeatherData : MonoBehaviour
         {
             Phase = EPhase.GetPublicIP;
 
-            // attempt to retrieve our public IP address
-            using (UnityWebRequest request = UnityWebRequest.Get(URL_GetPublicIP))
+        // attempt to retrieve our public IP address
+        string PublicIP = new WebClient().DownloadString(URL_GetPublicIP);
+
+        Debug.Log(PublicIP);
+        StartCoroutine(GetWeatherStage_2_GetGeoInfo());
+        weatherText.text = "Got your IP";
+        #region not ready to delete yet
+        /*using (UnityWebRequest request = UnityWebRequest.Get(URL_GetPublicIP))
+        {
+            request.timeout = 5;
+            yield return request.SendWebRequest();
+
+            // did the request succeed?
+            if (request.result == UnityWebRequest.Result.Success)
             {
-                request.timeout = 5;
-                yield return request.SendWebRequest();
-
-                // did the request succeed?
-                if (request.result == UnityWebRequest.Result.Success)
-                {
-                    PublicIP = request.downloadHandler.text.Trim();
-                    StartCoroutine(GetWeatherStage_2_GetGeoInfo());
-                    weatherText.text = "Got your IP";
-                }
-                else
-                {
-                    Debug.LogError($"Failed to get public IP: {request.downloadHandler.text}");
-                    weatherText.text = "Couldn't get your IP";
-                    Phase = EPhase.Failed;
-                }
+                PublicIP = request.downloadHandler.text.Trim();
+                StartCoroutine(GetWeatherStage_2_GetGeoInfo());
+                weatherText.text = "Got your IP";
             }
+            else
+            {
+                Debug.LogError($"Failed to get public IP: {request.downloadHandler.text}");
+                weatherText.text = "Couldn't get your IP";
+                Phase = EPhase.Failed;
+            }
+        }
+        */
+        #endregion
 
-            yield return null;
+        yield return null;
         }
 
         IEnumerator GetWeatherStage_2_GetGeoInfo()
@@ -431,18 +344,6 @@ public class GetLocalWeatherData : MonoBehaviour
                 
                     Debug.Log($"You are in {WeatherData.CityName}");
 
-                    int sysHour = System.DateTime.Now.Hour;
-                    if (sysHour == 6 || sysHour == 7 || sysHour == 8 || sysHour == 9 || sysHour == 10 || sysHour == 11 || sysHour == 12 || sysHour == 13 || sysHour == 14 || sysHour == 15 || sysHour == 16 || sysHour == 17)
-                        {
-                            DayTime = true;
-                        }
-                    else if (sysHour == 18 || sysHour == 19 || sysHour == 20 || sysHour == 21 || sysHour == 22 || sysHour == 23 || sysHour == 24 || sysHour == 1 || sysHour == 2 || sysHour == 3 || sysHour == 4 || sysHour == 5)
-                        {
-                            DayTime = false;
-                        }
-                Debug.Log(sysHour);
-                Debug.Log(DayTime);
-
                 Phase = EPhase.Succeeded;
                 }
                 else
@@ -455,7 +356,4 @@ public class GetLocalWeatherData : MonoBehaviour
 
             yield return null;
         }
-
-
-
 }
