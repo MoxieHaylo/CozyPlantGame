@@ -48,7 +48,11 @@ public class GameController : MonoBehaviour
 
     void SetBackground()
     {
-        if(weatherData.Clear==true)
+        if(weatherData.Clear==true&&DayTime==true)
+        {
+            //
+        }
+        else if (weatherData.Clear==true&&DayTime==false)
         {
             //
         }
