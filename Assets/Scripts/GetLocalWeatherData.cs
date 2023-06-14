@@ -174,7 +174,7 @@ public class GetLocalWeatherData : MonoBehaviour
 
             foreach (var condition in WeatherData.WeatherConditions)
             {
-                Debug.Log($"{condition.Group}: {condition.Description}");
+                //Debug.Log($"{condition.Group}: {condition.Description}");
 
                 if (condition.Group=="Clear")
                 {
@@ -200,7 +200,7 @@ public class GetLocalWeatherData : MonoBehaviour
                 }
                 else if(condition.Group=="Drizzle")
                 {
-                    weatherText.text = "Drzzle";
+                    weatherText.text = "Drizzle";
                     Clear = false;
                     Clouds = false;
                     Drizzle = true;
@@ -264,8 +264,6 @@ public class GetLocalWeatherData : MonoBehaviour
 
         // attempt to retrieve our public IP address
         string PublicIP = new WebClient().DownloadString(URL_GetPublicIP);
-
-        Debug.Log(PublicIP);
         StartCoroutine(GetWeatherStage_2_GetGeoInfo());
         weatherText.text = "Got your IP";
         #region not ready to delete yet
