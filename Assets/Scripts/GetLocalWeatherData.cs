@@ -166,7 +166,7 @@ public class GetLocalWeatherData : MonoBehaviour
         StartCoroutine(GetWeatherStage_1_GetIP());
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Phase == EPhase.Succeeded && !ShownWeatherInfo)
         {

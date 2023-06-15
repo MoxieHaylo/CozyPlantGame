@@ -2272,6 +2272,7 @@ MonoBehaviour:
   DayTime: 1
   dayLights: {fileID: 1479732550}
   nightNights: {fileID: 553114208}
+  BackgroundSet: 0
   clearDV: {fileID: 1066342403}
   clearNV: {fileID: 1657175802}
   cloudDV: {fileID: 843274483}

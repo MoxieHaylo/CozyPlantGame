@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public bool DayTime = true;
     public GameObject dayLights;
     public GameObject nightNights;
+    public bool BackgroundSet = false;
     public GameObject clearDV;
     public GameObject clearNV;
     public GameObject cloudDV;
@@ -27,21 +28,21 @@ public class GameController : MonoBehaviour
     void Start()
     {
         GetAndSetTime();
-        //StartCoroutine(SetUpScene());
-        SetBackground();
+        //SetBackground();
     }
 
     // Update is called once per frame
     void Update()
     {
-        SetBackground();
-        
+        if(BackgroundSet==false)
+        {
+            StartCoroutine(SetBackground());
+        }
+
     }
 
     IEnumerator SetUpScene()
     {
-        GetAndSetTime();
-        yield return new WaitForSeconds(1f);
         SetBackground();
         yield break;
     }
@@ -70,8 +71,9 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void SetBackground()
+    IEnumerator SetBackground()
     {
+        Debug.Log("Setting BG");
         if(weatherData.Clear==true&&DayTime==true)
         {
             clearDV.SetActive(true);
@@ -314,6 +316,9 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(true);
         }
+        yield return new WaitForSeconds(1);
+        BackgroundSet = true;
+        yield break;
     }
     
     /*
