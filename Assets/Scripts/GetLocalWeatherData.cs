@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 public class GetLocalWeatherData : MonoBehaviour
 {
+    public GameController gc;
     #region Weather API Key
     const string OpenWeatherAPIKey = "ad376b17409c1eb42671a2592c7fd554 ";
     #endregion 
@@ -166,7 +167,7 @@ public class GetLocalWeatherData : MonoBehaviour
         StartCoroutine(GetWeatherStage_1_GetIP());
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Phase == EPhase.Succeeded && !ShownWeatherInfo)
         {
@@ -266,6 +267,7 @@ public class GetLocalWeatherData : MonoBehaviour
         string PublicIP = new WebClient().DownloadString(URL_GetPublicIP);
         StartCoroutine(GetWeatherStage_2_GetGeoInfo());
         weatherText.text = "Got your IP";
+        yield return new WaitForSeconds(1);
         #region not ready to delete yet
         /*using (UnityWebRequest request = UnityWebRequest.Get(URL_GetPublicIP))
         {
