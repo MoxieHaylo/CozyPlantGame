@@ -39,13 +39,6 @@ public class GameController : MonoBehaviour
             StartCoroutine(SetBackground());
         }
 
-        //if(BackgroundSet==true&&Input.GetKeyUp(KeyCode.Space))
-        //{
-        //    Debug.Log("Test refresh");
-        //    BackgroundSet = false;
-        //    StartCoroutine(SetBackground());        
-        //}
-
     }
 
     IEnumerator SetUpScene()
