@@ -11062,6 +11062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed55f08a5155d4546940d477542a8056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gc: {fileID: 0}
   weatherText: {fileID: 29812180}
   Clear: 0
   Clouds: 0
@@ -16937,7 +16938,7 @@ MonoBehaviour:
   BackgroundSet: 0
 =======
   nightNights: {fileID: 1214186799}
->>>>>>> GreyBoxMainRoom
+  BackgroundSet: 0
   clearDV: {fileID: 1066342403}
   clearNV: {fileID: 1657175802}
   cloudDV: {fileID: 843274483}

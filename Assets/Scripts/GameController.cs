@@ -34,10 +34,17 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(BackgroundSet==false)
+        if (BackgroundSet == false)
         {
             StartCoroutine(SetBackground());
         }
+
+        //if(BackgroundSet==true&&Input.GetKeyUp(KeyCode.Space))
+        //{
+        //    Debug.Log("Test refresh");
+        //    BackgroundSet = false;
+        //    StartCoroutine(SetBackground());        
+        //}
 
     }
 
@@ -74,7 +81,7 @@ public class GameController : MonoBehaviour
     IEnumerator SetBackground()
     {
         Debug.Log("Setting BG");
-        if(weatherData.Clear==true&&DayTime==true)
+        if (weatherData.Clear == true && DayTime == true)
         {
             clearDV.SetActive(true);
             clearNV.SetActive(false);
@@ -91,7 +98,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Clear==true&&DayTime==false)
+        else if (weatherData.Clear == true && DayTime == false)
         {
             clearDV.SetActive(false);
             clearNV.SetActive(true);
@@ -108,7 +115,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if(weatherData.Clouds==true&&DayTime==true)
+        else if (weatherData.Clouds == true && DayTime == true)
         {
             clearDV.SetActive(false);
             clearNV.SetActive(false);
@@ -125,7 +132,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Clouds==true&&DayTime==false)
+        else if (weatherData.Clouds == true && DayTime == false)
         {
             Debug.Log("Night clouds");
             clearDV.SetActive(false);
@@ -143,7 +150,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Drizzle==true&&DayTime==true)
+        else if (weatherData.Drizzle == true && DayTime == true)
         {
             Debug.Log("Day drizzle");
             clearDV.SetActive(false);
@@ -161,7 +168,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Drizzle==true&&DayTime==false)
+        else if (weatherData.Drizzle == true && DayTime == false)
         {
             clearDV.SetActive(false);
             clearNV.SetActive(false);
@@ -179,7 +186,7 @@ public class GameController : MonoBehaviour
             atmosNV.SetActive(false);
             Debug.Log("night drizzle");
         }
-        else if (weatherData.Rain==true&&DayTime==true)
+        else if (weatherData.Rain == true && DayTime == true)
         {
             clearDV.SetActive(false);
             clearNV.SetActive(false);
@@ -196,7 +203,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Rain==true&&DayTime==false)
+        else if (weatherData.Rain == true && DayTime == false)
         {
             Debug.Log("Night Rain");
             clearDV.SetActive(false);
@@ -214,7 +221,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Thunder==true&&DayTime==true)
+        else if (weatherData.Thunder == true && DayTime == true)
         {
             clearDV.SetActive(false);
             clearNV.SetActive(false);
@@ -231,7 +238,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Thunder==true&&DayTime==false)
+        else if (weatherData.Thunder == true && DayTime == false)
         {
             clearDV.SetActive(false);
             clearNV.SetActive(false);
@@ -248,7 +255,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Snow==true&&DayTime==true)
+        else if (weatherData.Snow == true && DayTime == true)
         {
             clearDV.SetActive(false);
             clearNV.SetActive(false);
@@ -265,7 +272,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Snow==true&&DayTime==false)
+        else if (weatherData.Snow == true && DayTime == false)
         {
             clearDV.SetActive(false);
             clearNV.SetActive(false);
@@ -282,7 +289,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(false);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Atmosphere==true&&DayTime==true)
+        else if (weatherData.Atmosphere == true && DayTime == true)
         {
             clearDV.SetActive(false);
             clearNV.SetActive(false);
@@ -299,7 +306,7 @@ public class GameController : MonoBehaviour
             atmoDV.SetActive(true);
             atmosNV.SetActive(false);
         }
-        else if (weatherData.Atmosphere==true&&DayTime==false)
+        else if (weatherData.Atmosphere == true && DayTime == false)
         {
             clearDV.SetActive(false);
             clearNV.SetActive(false);
@@ -320,7 +327,7 @@ public class GameController : MonoBehaviour
         BackgroundSet = true;
         yield break;
     }
-    
+
     /*
      * Check DayTime
      * - set lighting 
