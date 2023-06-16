@@ -28,7 +28,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         GetAndSetTime();
-        //SetBackground();
     }
 
     // Update is called once per frame
@@ -36,14 +35,13 @@ public class GameController : MonoBehaviour
     {
         if (BackgroundSet == false)
         {
-            StartCoroutine(SetBackground());
+            StartCoroutine(SetUpScene());
         }
-
     }
 
     IEnumerator SetUpScene()
     {
-        SetBackground();
+        StartCoroutine(SetBackground());
         yield break;
     }
     void GetAndSetTime()
@@ -73,254 +71,87 @@ public class GameController : MonoBehaviour
 
     IEnumerator SetBackground()
     {
+        ClearBackground();
+        yield return new WaitForSeconds(0.2f);
         Debug.Log("Setting BG");
         if (weatherData.Clear == true && DayTime == true)
         {
             clearDV.SetActive(true);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Clear == true && DayTime == false)
         {
-            clearDV.SetActive(false);
             clearNV.SetActive(true);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Clouds == true && DayTime == true)
         {
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
             cloudDV.SetActive(true);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Clouds == true && DayTime == false)
         {
-            Debug.Log("Night clouds");
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
             cloudNV.SetActive(true);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Drizzle == true && DayTime == true)
         {
-            Debug.Log("Day drizzle");
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
             drizDV.SetActive(true);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Drizzle == true && DayTime == false)
         {
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
             drizNV.SetActive(true);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
-            Debug.Log("night drizzle");
         }
         else if (weatherData.Rain == true && DayTime == true)
         {
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
             rainDV.SetActive(true);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Rain == true && DayTime == false)
         {
-            Debug.Log("Night Rain");
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
             rainNV.SetActive(true);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Thunder == true && DayTime == true)
         {
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
             thunDV.SetActive(true);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Thunder == true && DayTime == false)
         {
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
             thunNV.SetActive(true);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Snow == true && DayTime == true)
         {
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
             snowDV.SetActive(true);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Snow == true && DayTime == false)
         {
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
-            atmosNV.SetActive(false);
+            snowNV.SetActive(true);
         }
         else if (weatherData.Atmosphere == true && DayTime == true)
         {
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
             atmoDV.SetActive(true);
-            atmosNV.SetActive(false);
         }
         else if (weatherData.Atmosphere == true && DayTime == false)
         {
-            clearDV.SetActive(false);
-            clearNV.SetActive(false);
-            cloudDV.SetActive(false);
-            cloudNV.SetActive(false);
-            drizDV.SetActive(false);
-            drizDV.SetActive(false);
-            rainDV.SetActive(false);
-            rainNV.SetActive(false);
-            thunDV.SetActive(false);
-            thunNV.SetActive(false);
-            snowDV.SetActive(false);
-            snowNV.SetActive(false);
-            atmoDV.SetActive(false);
             atmosNV.SetActive(true);
         }
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1); 
         BackgroundSet = true;
         yield break;
     }
 
+    void ClearBackground()    
+    {
+        clearDV.SetActive(false);
+        clearNV.SetActive(false);
+        cloudDV.SetActive(false);
+        cloudNV.SetActive(false);
+        drizDV.SetActive(false);
+        drizDV.SetActive(false);
+        rainDV.SetActive(false);
+        rainNV.SetActive(false);
+        thunDV.SetActive(false);
+        thunNV.SetActive(false);
+        snowDV.SetActive(false);
+        snowNV.SetActive(false);
+        atmoDV.SetActive(false);
+        atmosNV.SetActive(false);
+    }
     /*
      * Check DayTime
      * - set lighting 
