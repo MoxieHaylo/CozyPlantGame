@@ -17097,10 +17097,6 @@ MonoBehaviour:
   weatherData: {fileID: 1033653721}
   DayTime: 1
   dayLights: {fileID: 1479732550}
-<<<<<<< HEAD
-  nightNights: {fileID: 553114208}
-  BackgroundSet: 0
-=======
   nightNights: {fileID: 1214186799}
   BackgroundSet: 0
   clearDV: {fileID: 1066342403}
