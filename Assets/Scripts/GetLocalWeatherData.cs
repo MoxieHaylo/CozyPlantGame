@@ -10,7 +10,7 @@ public class GetLocalWeatherData : MonoBehaviour
 {
     public GameController gc;
     #region Weather API Key
-    const string OpenWeatherAPIKey = "ad376b17409c1eb42671a2592c7fd554 ";
+    const string OpenWeatherAPIKey = "put a key here";
     #endregion 
 
     public enum EPhase
@@ -175,8 +175,6 @@ public class GetLocalWeatherData : MonoBehaviour
 
             foreach (var condition in WeatherData.WeatherConditions)
             {
-                //Debug.Log($"{condition.Group}: {condition.Description}");
-
                 if (condition.Group=="Clear")
                 {
                     weatherText.text = "Clear skys";
@@ -263,7 +261,7 @@ public class GetLocalWeatherData : MonoBehaviour
         {
             Phase = EPhase.GetPublicIP;
 
-        // attempt to retrieve our public IP address
+        // attempt to retrieve the public IP address
         string PublicIP = new WebClient().DownloadString(URL_GetPublicIP);
         StartCoroutine(GetWeatherStage_2_GetGeoInfo());
         weatherText.text = "Got your IP";
@@ -331,7 +329,7 @@ public class GetLocalWeatherData : MonoBehaviour
             weatherURL += $"&lon={GeographicData.Longitude}";
             weatherURL += $"&APPID={OpenWeatherAPIKey}";
 
-            // attempt to retrieve the geographic data
+            // attempt to retrieve the weather data
             using (UnityWebRequest request = UnityWebRequest.Get(weatherURL))
             {
                 request.timeout = 1;
