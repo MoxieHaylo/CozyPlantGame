@@ -5,10 +5,10 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public GetLocalWeatherData weatherData;
-    public bool DayTime = true;
+    public bool isDayTime = true;
     public GameObject dayLights;
     public GameObject nightNights;
-    public bool BackgroundSet = false;
+    public bool isBackgroundSet = false;
     public GameObject clearDV;
     public GameObject clearNV;
     public GameObject cloudDV;
@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (BackgroundSet == false)
+        if (isBackgroundSet == false)
         {
             StartCoroutine(SetUpScene());
         }
@@ -49,15 +49,15 @@ public class GameController : MonoBehaviour
         int sysHour = System.DateTime.Now.Hour;
         if (sysHour == 6 || sysHour == 7 || sysHour == 8 || sysHour == 9 || sysHour == 10 || sysHour == 11 || sysHour == 12 || sysHour == 13 || sysHour == 14 || sysHour == 15 || sysHour == 16 || sysHour == 17)
         {
-            DayTime = true;
+            isDayTime = true;
         }
         else if (sysHour == 18 || sysHour == 19 || sysHour == 20 || sysHour == 21 || sysHour == 22 || sysHour == 23 || sysHour == 24 || sysHour == 1 || sysHour == 2 || sysHour == 3 || sysHour == 4 || sysHour == 5)
         {
-            DayTime = false;
+            isDayTime = false;
         }
         Debug.Log(sysHour);
-        Debug.Log(DayTime);
-        if (DayTime == true)
+        Debug.Log(isDayTime);
+        if (isDayTime == true)
         {
             dayLights.SetActive(true);
             nightNights.SetActive(false);
@@ -74,64 +74,64 @@ public class GameController : MonoBehaviour
         ClearBackground();
         yield return new WaitForSeconds(0.2f);
         Debug.Log("Setting BG");
-        if (weatherData.Clear == true && DayTime == true)
+        if (weatherData.isClear == true && isDayTime == true)
         {
             clearDV.SetActive(true);
         }
-        else if (weatherData.Clear == true && DayTime == false)
+        else if (weatherData.isClear == true && isDayTime == false)
         {
             clearNV.SetActive(true);
         }
-        else if (weatherData.Clouds == true && DayTime == true)
+        else if (weatherData.isCloudy == true && isDayTime == true)
         {
             cloudDV.SetActive(true);
         }
-        else if (weatherData.Clouds == true && DayTime == false)
+        else if (weatherData.isCloudy == true && isDayTime == false)
         {
             cloudNV.SetActive(true);
         }
-        else if (weatherData.Drizzle == true && DayTime == true)
+        else if (weatherData.isDrizzlling == true && isDayTime == true)
         {
             drizDV.SetActive(true);
         }
-        else if (weatherData.Drizzle == true && DayTime == false)
+        else if (weatherData.isDrizzlling == true && isDayTime == false)
         {
             drizNV.SetActive(true);
         }
-        else if (weatherData.Rain == true && DayTime == true)
+        else if (weatherData.isRaining == true && isDayTime == true)
         {
             rainDV.SetActive(true);
         }
-        else if (weatherData.Rain == true && DayTime == false)
+        else if (weatherData.isRaining == true && isDayTime == false)
         {
             rainNV.SetActive(true);
         }
-        else if (weatherData.Thunder == true && DayTime == true)
+        else if (weatherData.isThundering == true && isDayTime == true)
         {
             thunDV.SetActive(true);
         }
-        else if (weatherData.Thunder == true && DayTime == false)
+        else if (weatherData.isThundering == true && isDayTime == false)
         {
             thunNV.SetActive(true);
         }
-        else if (weatherData.Snow == true && DayTime == true)
+        else if (weatherData.isSnowing == true && isDayTime == true)
         {
             snowDV.SetActive(true);
         }
-        else if (weatherData.Snow == true && DayTime == false)
+        else if (weatherData.isSnowing == true && isDayTime == false)
         {
             snowNV.SetActive(true);
         }
-        else if (weatherData.Atmosphere == true && DayTime == true)
+        else if (weatherData.isAtmosphere == true && isDayTime == true)
         {
             atmoDV.SetActive(true);
         }
-        else if (weatherData.Atmosphere == true && DayTime == false)
+        else if (weatherData.isAtmosphere == true && isDayTime == false)
         {
             atmosNV.SetActive(true);
         }
         yield return new WaitForSeconds(1); 
-        BackgroundSet = true;
+        isBackgroundSet = true;
         yield break;
     }
 

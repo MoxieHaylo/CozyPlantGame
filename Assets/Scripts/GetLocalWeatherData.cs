@@ -10,7 +10,7 @@ public class GetLocalWeatherData : MonoBehaviour
 {
     public GameController gc;
     #region Weather API Key
-    const string OpenWeatherAPIKey = "put a key here";
+    const string OpenWeatherAPIKey = "ad376b17409c1eb42671a2592c7fd554";
     #endregion 
 
     public enum EPhase
@@ -146,15 +146,15 @@ public class GetLocalWeatherData : MonoBehaviour
     string PublicIP;
     geoPluginResponse GeographicData;
     OpenWeatherResponse WeatherData;
-    bool ShownWeatherInfo = false;
+    bool isWeatherInfoDisplayed = false;
 
-    public bool Clear = false;
-    public bool Clouds = false;
-    public bool Drizzle = false;
-    public bool Rain = false;
-    public bool Thunder = false;
-    public bool Snow = false;
-    public bool Atmosphere = false;
+    public bool isClear = false;
+    public bool isCloudy = false;
+    public bool isDrizzlling = false;
+    public bool isRaining = false;
+    public bool isThundering = false;
+    public bool isSnowing = false;
+    public bool isAtmosphere = false;
 
     void Start()
     {
@@ -169,88 +169,88 @@ public class GetLocalWeatherData : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Phase == EPhase.Succeeded && !ShownWeatherInfo)
+        if (Phase == EPhase.Succeeded && !isWeatherInfoDisplayed)
         {
-            ShownWeatherInfo = true;
+            isWeatherInfoDisplayed = true;
 
             foreach (var condition in WeatherData.WeatherConditions)
             {
                 if (condition.Group=="Clear")
                 {
                     weatherText.text = "Clear skys";
-                    Clear = true;
-                    Clouds = false;
-                    Drizzle = false;
-                    Rain = false;
-                    Thunder = false;
-                    Snow = false;
-                    Atmosphere = false;
+                    isClear = true;
+                    isCloudy = false;
+                    isDrizzlling = false;
+                    isRaining = false;
+                    isThundering = false;
+                    isSnowing = false;
+                    isAtmosphere = false;
                 }
                 else if(condition.Group=="Clouds")
                 {
                     weatherText.text = "Clouds";
-                    Clear = false;
-                    Clouds = true;
-                    Drizzle = false;
-                    Rain = false;
-                    Thunder = false;
-                    Snow = false;
-                    Atmosphere = false;
+                    isClear = false;
+                    isCloudy = true;
+                    isDrizzlling = false;
+                    isRaining = false;
+                    isThundering = false;
+                    isSnowing = false;
+                    isAtmosphere = false;
                 }
                 else if(condition.Group=="Drizzle")
                 {
                     weatherText.text = "Drizzle";
-                    Clear = false;
-                    Clouds = false;
-                    Drizzle = true;
-                    Rain = false;
-                    Thunder = false;
-                    Snow = false;
-                    Atmosphere = false;
+                    isClear = false;
+                    isCloudy = false;
+                    isDrizzlling = true;
+                    isRaining = false;
+                    isThundering = false;
+                    isSnowing = false;
+                    isAtmosphere = false;
                 }
                 else if(condition.Group=="Rain")
                 {
                     weatherText.text = "Rain";
-                    Clear = false;
-                    Clouds = false;
-                    Drizzle = false;
-                    Rain = true;
-                    Thunder = false;
-                    Snow = false;
-                    Atmosphere = false;
+                    isClear = false;
+                    isCloudy = false;
+                    isDrizzlling = false;
+                    isRaining = true;
+                    isThundering = false;
+                    isSnowing = false;
+                    isAtmosphere = false;
                 }
                 else if(condition.Group=="Thunderstorm")
                 {
                     weatherText.text = "Thunder";
-                    Clear = false;
-                    Clouds = false;
-                    Drizzle = false;
-                    Rain = false;
-                    Thunder = true;
-                    Snow = false;
-                    Atmosphere = false;
+                    isClear = false;
+                    isCloudy = false;
+                    isDrizzlling = false;
+                    isRaining = false;
+                    isThundering = true;
+                    isSnowing = false;
+                    isAtmosphere = false;
                 }
                 else if(condition.Group=="Snow")
                 {
                     weatherText.text = "Snow";
-                    Clear = false;
-                    Clouds = false;
-                    Drizzle = false;
-                    Rain = false;
-                    Thunder = false;
-                    Snow = true;
-                    Atmosphere = false;
+                    isClear = false;
+                    isCloudy = false;
+                    isDrizzlling = false;
+                    isRaining = false;
+                    isThundering = false;
+                    isSnowing = true;
+                    isAtmosphere = false;
                 }
                 else if(condition.Group=="Atmosphere")
                 {
                     weatherText.text = "Atmosphere";
-                    Clear = false;
-                    Clouds = false;
-                    Drizzle = false;
-                    Rain = false;
-                    Thunder = false;
-                    Snow = false;
-                    Atmosphere = true;
+                    isClear = false;
+                    isCloudy = false;
+                    isDrizzlling = false;
+                    isRaining = false;
+                    isThundering = false;
+                    isSnowing = false;
+                    isAtmosphere = true;
                 }
             }
 
@@ -341,6 +341,7 @@ public class GetLocalWeatherData : MonoBehaviour
                     WeatherData = JsonConvert.DeserializeObject<OpenWeatherResponse>(request.downloadHandler.text);
                 
                     Debug.Log($"You are in {WeatherData.CityName}");
+                    //Debug.Log(WeatherData.Internal_Sys.SunsetTime);
 
                 Phase = EPhase.Succeeded;
                 }
