@@ -1,12 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 [System.Serializable]
 public class GameData
 {
-    public Vector3 sPlantVector;
-    public Transform sPlantTrans;
+
+    public float smallPlantInitTime;
+
+    public GameData()
+    {
+        this.smallPlantInitTime = 0f;
+    }
 
 
 }

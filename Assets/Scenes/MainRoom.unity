@@ -1598,7 +1598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &155412223
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6002,7 +6002,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -6043,13 +6043,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.006883775, y: 0.08997046, z: 0.00053988775, w: 0.99592054}
-  m_LocalPosition: {x: 24.682, y: 187.172, z: -349.796}
+  m_LocalRotation: {x: 0.039825104, y: 0.11359353, z: -0.0049709347, w: 0.9927164}
+  m_LocalPosition: {x: 24.58, y: 188.11, z: -349.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -0.791, y: 10.324, z: -0.009}
+  m_LocalEulerAnglesHint: {x: 4.6, y: 13.054, z: -0.047}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6865,15 +6865,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed55f08a5155d4546940d477542a8056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gc: {fileID: 0}
+  gc: {fileID: 1604845535}
   weatherText: {fileID: 29812180}
-  Clear: 0
-  Clouds: 0
-  Drizzle: 0
-  Rain: 0
-  Thunder: 0
-  Snow: 0
-  Atmosphere: 0
+  isClear: 0
+  isCloudy: 0
+  isDrizzlling: 0
+  isRaining: 0
+  isThundering: 0
+  isSnowing: 0
+  isAtmosphere: 0
 --- !u!223 &1033653722
 Canvas:
   m_ObjectHideFlags: 0
@@ -10606,10 +10606,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weatherData: {fileID: 1033653721}
-  DayTime: 1
+  isDayTime: 1
   dayLights: {fileID: 1479732550}
   nightNights: {fileID: 1214186799}
-  BackgroundSet: 0
+  isBackgroundSet: 0
   clearDV: {fileID: 1066342403}
   clearNV: {fileID: 1657175802}
   cloudDV: {fileID: 843274483}
@@ -10617,13 +10617,14 @@ MonoBehaviour:
   drizDV: {fileID: 35177438}
   drizNV: {fileID: 1941899241}
   rainDV: {fileID: 1175638401}
-  rainNV: {fileID: 1175638401}
+  rainNV: {fileID: 1467209904}
   thunDV: {fileID: 1253633839}
   thunNV: {fileID: 124598856}
   snowDV: {fileID: 1760748720}
   snowNV: {fileID: 662732058}
   atmoDV: {fileID: 804250681}
   atmosNV: {fileID: 1068112725}
+  canvas: {fileID: 155412222}
 --- !u!1 &1657175802
 GameObject:
   m_ObjectHideFlags: 0
@@ -11089,7 +11090,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860079365}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.86, y: 189.3, z: -309.89}
+  m_LocalPosition: {x: 30.77, y: 187.4, z: -309.89}
   m_LocalScale: {x: 8.93425, y: 5.023034, z: 0.009926944}
   m_Children:
   - {fileID: 1066342404}
@@ -12603,7 +12604,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2079972416}
   - component: {fileID: 2079972421}
-  - component: {fileID: 2079972420}
   - component: {fileID: 2079972419}
   - component: {fileID: 2079972418}
   - component: {fileID: 2079972417}
@@ -12691,18 +12691,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2079972420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079972415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca002da428252441b92f28d83c8a65f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2079972421
 MonoBehaviour:
   m_ObjectHideFlags: 0

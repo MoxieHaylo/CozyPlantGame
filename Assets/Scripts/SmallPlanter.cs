@@ -2,7 +2,7 @@ using System.Net;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SmallPlant : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class SmallPlanter : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     //public GameController gc;
     //public GetLocalWeatherData wd;
