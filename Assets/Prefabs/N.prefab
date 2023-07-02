@@ -108,3 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0165f01412a6169449e503754716de97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smallPlanter: {fileID: 8000836827306335285, guid: 64e4a84a95e109d4aaf472d9d621aec5, type: 3}
+  initializationTime: 0
+  isGrown: 0

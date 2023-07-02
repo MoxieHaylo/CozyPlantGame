@@ -4,20 +4,57 @@ using UnityEngine.EventSystems;
 
 public class SmallPlanter : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    //public GameController gc;
+    private PlantA aPlant;
+    private PlantI iPlant;
+    private bool hasTimePassed = false;
     //public GetLocalWeatherData wd;
     public GameObject n;
     public GameObject i;
     public GameObject a;
     public GameObject e;
-    public GameObject u;
-    public GameObject x;
-    public GameObject aa;
-    public GameObject s;
+    //public GameObject u;
+    //public GameObject x;
+    //public GameObject aa;
+    //public GameObject s;
+    public bool isNGrowing = false;
+    public bool isIGrowing = false;
+    public bool isAGrowing = false;
+    public bool isEGrowing = false;
+    public bool nothingIsGrowing = true;
 
     public bool isNight = false;
     public bool isClear = false;
 
+    private void Awake()
+    {
+        aPlant = GetComponent<PlantA>();
+        iPlant = GetComponent<PlantI>();
+    }
+
+    private void Start()
+    {
+        Invoke("SetOneMinutePassed", 60f);
+    }
+    private void Update()
+    {
+        if(hasTimePassed)
+        {
+            Debug.Log("we got a minute old plant");
+        }
+
+        if (isNGrowing == true || isIGrowing == true || isEGrowing == true || isAGrowing == true)
+        {
+            nothingIsGrowing = false;
+        }
+        else if (isNGrowing == false || isIGrowing == false || isEGrowing == false || isAGrowing == false)
+        {
+            nothingIsGrowing = true;
+        }
+    }
+    private void SetOneMinutePassed()
+    {
+        hasTimePassed = true;
+    }
     //Detect if the Cursor starts to pass over the GameObject
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
@@ -37,44 +74,58 @@ public class SmallPlanter : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         int currentDate = System.DateTime.Now.Day;
         Debug.Log(currentDate);
 
-        if(transform.childCount<1)
+        if (isNight == false && isClear == true&& nothingIsGrowing == true)
         {
-            if (isNight == false && isClear == true)
-            {
-                Debug.Log("option 1");
-                Instantiate(n, this.transform, worldPositionStays: false);
-            }
-            else if (isNight == false && isClear == false)
-            {
-                Debug.Log("option 2");
-                Instantiate(i, this.transform, worldPositionStays: false);
-            }
-            else if (isNight == true && isClear == true)
-            {
-                Debug.Log("option 3");
-                Instantiate(a, this.transform, worldPositionStays: false);
-            }
-            else if (isNight == true && isClear == false)
-            {
-                Debug.Log("option 4");
-                Instantiate(e, this.transform, worldPositionStays: false);
-            }
+            //n.SetActive(true);
+            isNGrowing = true;
+            Debug.Log("N Growing");
+            Instantiate(n, this.transform, worldPositionStays: false);
         }
+        else if (isNight == false && isClear == false&& nothingIsGrowing == true)
+        {
+            //i.SetActive(true);
+            //isIGrowing = true;
+            //Debug.Log("I Growing");
+            Instantiate(i, this.transform, worldPositionStays: false);
+        }
+
+        else if (isNight == true && isClear == true&&nothingIsGrowing == true)
+        {
+            //a.SetActive(true);
+            isAGrowing = true;
+            Debug.Log("A Growing");
+            Instantiate(a, this.transform, worldPositionStays: false);
+        }
+        else if (isNight == true && isClear == false&&nothingIsGrowing==true)
+        {
+            //e.SetActive(true);
+            isEGrowing = true;
+            Debug.Log("N Growing");
+            Instantiate(e, this.transform, worldPositionStays: false);
+        }
+
         else
         {
-            HarvestPlant();
+            Debug.Log("Don't touch me");
+            //PlantsInactive();
         }
 
-        void HarvestPlant()
+        void PlantsInactive()
         {
+            nothingIsGrowing = true;
+            isNGrowing = false;
+            isIGrowing = false;
+            isEGrowing = false;
+            isAGrowing = false;
 
-                Destroy(transform.GetChild(0).gameObject);
-
+            //n.SetActive(false);
+            //i.SetActive(false);
+            //e.SetActive(false);
+            //a.SetActive(false);
+            Destroy(transform.GetChild(0).gameObject);
         }
-
-
-
     }
+
 
 
     //Detect if a click occurs
