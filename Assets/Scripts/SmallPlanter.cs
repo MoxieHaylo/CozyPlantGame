@@ -7,18 +7,18 @@ public class SmallPlanter : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private PlantA aPlant;
     private PlantI iPlant;
     private bool hasTimePassed = false;
-    //public GetLocalWeatherData wd;
-    public GameObject n;
-    public GameObject i;
-    public GameObject a;
-    public GameObject e;
-    //public GameObject u;
-    //public GameObject x;
-    //public GameObject aa;
-    //public GameObject s;
+
+    public  GameObject nPrefab;
+    private GameObject nObj;
+    public  GameObject iPrefab;
+    private GameObject iObj;
+    public  GameObject aPrefab;
+    private GameObject aObj;
+    public  GameObject ePrefab;
+    private GameObject eObj;
+
     public bool isNGrowing = false;
     public bool isIGrowing = false;
-    public bool isAGrowing = false;
     public bool isEGrowing = false;
     public bool nothingIsGrowing = true;
 
@@ -42,11 +42,11 @@ public class SmallPlanter : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             Debug.Log("we got a minute old plant");
         }
 
-        if (isNGrowing == true || isIGrowing == true || isEGrowing == true || isAGrowing == true)
+        if (isNGrowing == true || isIGrowing == true || isEGrowing == true || isIGrowing == true)
         {
             nothingIsGrowing = false;
         }
-        else if (isNGrowing == false || isIGrowing == false || isEGrowing == false || isAGrowing == false)
+        else if (isNGrowing == false || isIGrowing == false || isEGrowing == false || isIGrowing == false)
         {
             nothingIsGrowing = true;
         }
@@ -76,66 +76,60 @@ public class SmallPlanter : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         if (isNight == false && isClear == true&& nothingIsGrowing == true)
         {
-            //n.SetActive(true);
             isNGrowing = true;
             Debug.Log("N Growing");
-            Instantiate(n, this.transform, worldPositionStays: false);
+            nObj = Instantiate(nPrefab, this.transform);
         }
         else if (isNight == false && isClear == false&& nothingIsGrowing == true)
         {
-            //i.SetActive(true);
             //isIGrowing = true;
-            //Debug.Log("I Growing");
-            Instantiate(i, this.transform, worldPositionStays: false);
+            iObj = Instantiate(iPrefab, this.transform);
         }
 
         else if (isNight == true && isClear == true&&nothingIsGrowing == true)
         {
-            //a.SetActive(true);
-            isAGrowing = true;
+            isIGrowing = true;
             Debug.Log("A Growing");
-            Instantiate(a, this.transform, worldPositionStays: false);
+            aObj = Instantiate(aPrefab, this.transform);
         }
         else if (isNight == true && isClear == false&&nothingIsGrowing==true)
         {
-            //e.SetActive(true);
             isEGrowing = true;
             Debug.Log("N Growing");
-            Instantiate(e, this.transform, worldPositionStays: false);
+            eObj = Instantiate(ePrefab, this.transform);
+        }
+        else if (nothingIsGrowing==false&&isIGrowing==true)
+        {
+            isIGrowing = false;
+            Destroy(transform.GetChild(0).gameObject);
+        }
+        else if (nothingIsGrowing == false && isEGrowing == true)
+        {
+            isEGrowing = false;
+            Destroy(transform.GetChild(0).gameObject);
+        }
+        else if (nothingIsGrowing == false && isIGrowing == true)
+        {
+            isIGrowing = false;
+            Destroy(transform.GetChild(0).gameObject);
+        }
+        else if (nothingIsGrowing == false && isNGrowing == true)
+        {
+            isNGrowing = false;
+            Destroy(transform.GetChild(0).gameObject);
         }
 
         else
         {
             Debug.Log("Don't touch me");
-            //PlantsInactive();
         }
 
-        void PlantsInactive()
-        {
-            nothingIsGrowing = true;
-            isNGrowing = false;
-            isIGrowing = false;
-            isEGrowing = false;
-            isAGrowing = false;
-
-            //n.SetActive(false);
-            //i.SetActive(false);
-            //e.SetActive(false);
-            //a.SetActive(false);
-            Destroy(transform.GetChild(0).gameObject);
-        }
     }
 
-
-
-    //Detect if a click occurs
-
-    /*
-     * On click
-     * --------
-     * Play animation
-     * Play SFX
-     * Add to inventory
-     * Delete self
-     */
+    private void InstantiatePlantI()
+    {
+        Debug.Log("Instantiate Obj called");
+        iObj = Instantiate(iPrefab, transform.position, Quaternion.identity);
+        isIGrowing = true;
+    }
 }

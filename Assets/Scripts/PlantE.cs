@@ -5,14 +5,13 @@ using UnityEngine.Networking;
 using System;
 using UnityEngine.EventSystems;
 
-public class PlantA : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class PlantE : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public DateTime creationTime;
-    public DateTime CreationTime
-
-    {
-        get { return creationTime; }
+    public DateTime CreationTime {get { return creationTime; }
     }
+    public float initializationTime;
+    public bool isGrown = false;
 
     private void Awake()
     {
@@ -20,9 +19,6 @@ public class PlantA : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPo
         creationTime = DateTime.Now;
         Debug.Log(creationTime);
     }
-
-    public float initializationTime;
-    public bool isGrown = false;
 
     public void LoadData(GameData data)
     {
@@ -61,14 +57,13 @@ public class PlantA : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPo
         float floatTime = (float)dateTime.ToOADate();
         initializationTime = floatTime;
         float elapsedTime = Time.realtimeSinceStartup - initializationTime;
-        if (!isGrown && elapsedTime >= 180f)
+        if (!isGrown && elapsedTime >= 60f)
         {
             isGrown = true;
             Debug.Log("Grown");
-
             //SaveGrowthStatus();
         }
         float timeSinceInitialization = Time.realtimeSinceStartup - initializationTime;
-        //Debug.Log(timeSinceInitialization);
+
     }
 }

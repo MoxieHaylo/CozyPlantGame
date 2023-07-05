@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using System;
 using UnityEngine.EventSystems;
 
-public class PlantA : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class PlantN : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public DateTime creationTime;
     public DateTime CreationTime

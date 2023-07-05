@@ -1,35 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.Networking;
 using System;
 using UnityEngine.EventSystems;
 
 public class PlantI : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    public SmallPlanter smallPlanter;
+    private SmallPlanter smallPlanter;
     public DateTime creationTime;
     public DateTime CreationTime
-
     {
         get { return creationTime; }
     }
-
-    private void Awake()
-    {
-        Debug.Log("I growing");
-        smallPlanter.isIGrowing = true;
-        creationTime = DateTime.Now;
-        Debug.Log(creationTime);
-    }
-
     public float initializationTime;
     public bool isGrown = false;
 
-    public void LoadData(GameData data)
+    private void Awake()
     {
-        this.initializationTime = data.smallPlantInitTime;
+        smallPlanter = GetComponent<SmallPlanter>();
     }
+
     public void SaveData(GameData data)
     {
         data.smallPlantInitTime = this.initializationTime;
@@ -38,6 +27,13 @@ public class PlantI : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPo
     {
         initializationTime = Time.realtimeSinceStartup;
         //LoadGrowthStatus();
+
+        
+        smallPlanter = GetComponentInParent<SmallPlanter>();
+        smallPlanter.isIGrowing = true;
+        Debug.Log("I growing");
+        creationTime = DateTime.Now;
+        Debug.Log(creationTime);
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
@@ -54,13 +50,8 @@ public class PlantI : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPo
     }
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        smallPlanter.nothingIsGrowing = true;
-        //smallPlanter.isAGrowing = false;
-        //smallPlanter.isEGrowing = false;
-        //smallPlanter.isIGrowing = false;
-        //smallPlanter.isNGrowing = false;
-        Debug.Log("I should be harvested");
-        //StartCoroutine(HarvestPlant());
+        Debug.Log("I'm a plant and I'm here to grow");
+        smallPlanter.isIGrowing = false;
     }
 
     void Update()
@@ -69,22 +60,18 @@ public class PlantI : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPo
         float floatTime = (float)dateTime.ToOADate();
         initializationTime = floatTime;
         float elapsedTime = Time.realtimeSinceStartup - initializationTime;
-        if (!isGrown && elapsedTime >= 180f)
+        if (!isGrown && elapsedTime >= 60f)
         {
             isGrown = true;
             Debug.Log("Grown");
-
             //SaveGrowthStatus();
         }
         float timeSinceInitialization = Time.realtimeSinceStartup - initializationTime;
-        //Debug.Log(timeSinceInitialization);
+
     }
 
-    public IEnumerator HarvestPlant()
+    public void LoadData(GameData data)
     {
-        Debug.Log("Plant should be harvested now");
-        yield return new WaitForSeconds(0.2f);
-        Destroy(this.gameObject);
-        yield break;
+        this.initializationTime = data.smallPlantInitTime;
     }
 }
