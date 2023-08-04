@@ -4,18 +4,11 @@ using UnityEngine.EventSystems;
 
 public class SmallPlanter : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    private PlantA aPlant;
-    private PlantI iPlant;
+    private SmallPlant smallPlant;
     private bool hasTimePassed = false;
 
-    public  GameObject nPrefab;
-    private GameObject nObj;
-    public  GameObject iPrefab;
-    private GameObject iObj;
-    public  GameObject aPrefab;
-    private GameObject aObj;
-    public  GameObject ePrefab;
-    private GameObject eObj;
+    public GameObject[] smallPlantPrefabs;
+    public Transform spawnPos;
 
     public bool isNGrowing = false;
     public bool isIGrowing = false;
@@ -27,8 +20,7 @@ public class SmallPlanter : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private void Awake()
     {
-        aPlant = GetComponent<PlantA>();
-        iPlant = GetComponent<PlantI>();
+        smallPlant = GetComponent<SmallPlant>();
     }
 
     private void Start()
@@ -78,25 +70,24 @@ public class SmallPlanter : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             isNGrowing = true;
             Debug.Log("N Growing");
-            nObj = Instantiate(nPrefab, this.transform);
         }
         else if (isNight == false && isClear == false&& nothingIsGrowing == true)
         {
             //isIGrowing = true;
-            iObj = Instantiate(iPrefab, this.transform);
+
         }
 
         else if (isNight == true && isClear == true&&nothingIsGrowing == true)
         {
             isIGrowing = true;
             Debug.Log("A Growing");
-            aObj = Instantiate(aPrefab, this.transform);
+
         }
         else if (isNight == true && isClear == false&&nothingIsGrowing==true)
         {
             isEGrowing = true;
             Debug.Log("N Growing");
-            eObj = Instantiate(ePrefab, this.transform);
+
         }
         else if (nothingIsGrowing==false&&isIGrowing==true)
         {
@@ -126,10 +117,10 @@ public class SmallPlanter : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     }
 
-    private void InstantiatePlantI()
+    public void SpawnPlantI(int index)
     {
-        Debug.Log("Instantiate Obj called");
-        iObj = Instantiate(iPrefab, transform.position, Quaternion.identity);
+        Debug.Log("Making an I plant");
+        Instantiate(smallPlantPrefabs[2], spawnPos);
         isIGrowing = true;
     }
 }

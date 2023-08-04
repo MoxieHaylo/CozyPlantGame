@@ -23,8 +23,9 @@ Material:
   m_Name: New Material
   m_Shader: {fileID: 4800000, guid: 60e29b7951f20da47b11861d166b7036, type: 3}
   m_ShaderKeywords: _OUTLINETYPE_NORMAL _OVERLAYMODE1_NONE _OVERLAYMODE_NONE _RIMSPLITCOLOR_NOSPLIT
-    _USEADDITIONALLIGHTSDIFFUSE_ON _USEHATCHINGCONSTANTSCALE_ON _USELIGHTRAMP_STEP
-    _USEPURESKETCH_ON _USESHADOWS_ON _USESPECULAR_ON
+    _USEADDITIONALLIGHTSDIFFUSE_ON _USEDYNAMICOUTLINE_ON _USEENVIRONMENTREFLETION_ON
+    _USEHATCHINGCONSTANTSCALE_ON _USELIGHTRAMP_STEP _USEOUTLINE_ON _USEPURESKETCH_ON
+    _USESHADOWS_ON _USESPECULAR_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -119,9 +120,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AdaptiveThicnkess: 0
-    - _AdditionalLightsAmount: 0.86
-    - _AdditionalLightsFaloff: 1
+    - _AdaptiveThicnkess: 0.046
+    - _AdditionalLightsAmount: 1
+    - _AdditionalLightsFaloff: 0
     - _AdditionalLightsIntesity: 1
     - _AdditionalLightsSmoothnessMultiplier: 1
     - _AlphaClip: 0
@@ -156,15 +157,15 @@ Material:
     - _IndirectLightAffectOnHatch: 0
     - _IndirectLightStrength: 0.301
     - _InverseMask: 0
-    - _LightRampOffset: 0
+    - _LightRampOffset: -1
     - _Lighten: 0
-    - _MainLightIntesity: 1
+    - _MainLightIntesity: 2.21
     - _MaxScaleDependingOnCamera: 1
     - _Metallic: 0
     - _NormalMapStrength: 1
     - _OcclusionStrength: 1
     - _OutlineDynamicSpeed: 0
-    - _OutlineNoiseIntesity: 1
+    - _OutlineNoiseIntesity: 0.89
     - _OutlineNoiseScale: 10
     - _OutlineTextureStrength: 0
     - _OutlineType: 0
@@ -186,7 +187,7 @@ Material:
     - _SideShineHardness: 0
     - _SideShineIntensity: 1
     - _Smoothness: 0.5
-    - _SmoothnessMultiplier: 1
+    - _SmoothnessMultiplier: 1.33
     - _SmoothnessTextureChannel: 0
     - _SpecularFaloff: 0
     - _SpecularHighlights: 1
@@ -198,9 +199,9 @@ Material:
     - _SrcBlend: 1
     - _StepHalftoneTexture: 0
     - _StepOffset: 0
-    - _Strength: 0
+    - _Strength: 0.045
     - _Surface: 0
-    - _Thicnkess: 0
+    - _Thicnkess: 0.0046
     - _UVAnimationSpeed: 0
     - _UVAnimationSpeedSpec: 0
     - _UVAnimationSpeedWarp: 0
@@ -217,12 +218,12 @@ Material:
     - _UseBacklight: 0
     - _UseDiffuseWarp: 0
     - _UseDiffuseWarpAsOverlay: 0
-    - _UseDynamicOutline: 0
+    - _UseDynamicOutline: 1
     - _UseEmission: 0
-    - _UseEnvironmentRefletion: 0
+    - _UseEnvironmentRefletion: 1
     - _UseHatchingConstantScale: 1
     - _UseLightRamp: 0
-    - _UseOutline: 0
+    - _UseOutline: 1
     - _UsePureSketch: 1
     - _UseRimLight: 0
     - _UseScreenUvs: 0
@@ -242,9 +243,9 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HalftoneColor: {r: 0, g: 0, b: 0, a: 1}
     - _HatchingColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineColor: {r: 0.007843138, g: 0.007843138, b: 0.007843138, a: 0}
     - _RimColor: {r: 1, g: 1, b: 1, a: 0}
     - _RimShadowColor: {r: 0, g: 0.055514283, b: 0.9622641, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
-    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecColor: {r: 0.18600923, g: 0.18867922, b: 0.18624313, a: 1}
   m_BuildTextureStacks: []
