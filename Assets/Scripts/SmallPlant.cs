@@ -1,24 +1,41 @@
-using System.Net;
+
 using UnityEngine;
+using System;
 using UnityEngine.EventSystems;
 
-public class SmallPlant : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class SmallPlant : MonoBehaviour, IDataPersistence, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    //public GameController gc;
-    //public GetLocalWeatherData wd;
-    public GameObject n;
-    public GameObject i;
-    public GameObject a;
-    public GameObject e;
-    public GameObject u;
-    public GameObject x;
-    public GameObject aa;
-    public GameObject s;
+    private SmallPlanter smallPlanter;
+    public DateTime creationTime;
+    public DateTime CreationTime
+    {
+        get { return creationTime; }
+    }
+    public float initializationTime;
+    public bool isGrown = false;
 
-    public bool isNight = false;
-    public bool isClear = false;
+    private void Awake()
+    {
+        smallPlanter = GetComponent<SmallPlanter>();
+    }
 
-    //Detect if the Cursor starts to pass over the GameObject
+    public void SaveData(GameData data)
+    {
+        data.smallPlantInitTime = this.initializationTime;
+    }
+    void Start()
+    {
+        initializationTime = Time.realtimeSinceStartup;
+        //LoadGrowthStatus();
+
+        
+        smallPlanter = GetComponentInParent<SmallPlanter>();
+        smallPlanter.isIGrowing = true;
+        Debug.Log("I growing");
+        creationTime = DateTime.Now;
+        Debug.Log(creationTime);
+    }
+
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         //Output to console the GameObject's name and the following message
@@ -33,58 +50,28 @@ public class SmallPlant : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        Debug.Log(name + "Game object clicked");
-        int currentDate = System.DateTime.Now.Day;
-        Debug.Log(currentDate);
+        Debug.Log("I'm a plant and I'm here to grow");
+        smallPlanter.isIGrowing = false;
+    }
 
-        if(transform.childCount<1)
+    void Update()
+    {
+        DateTime dateTime = DateTime.Now;
+        float floatTime = (float)dateTime.ToOADate();
+        initializationTime = floatTime;
+        float elapsedTime = Time.realtimeSinceStartup - initializationTime;
+        if (!isGrown && elapsedTime >= 60f)
         {
-            if (isNight == false && isClear == true)
-            {
-                Debug.Log("option 1");
-                Instantiate(n, this.transform, worldPositionStays: false);
-            }
-            else if (isNight == false && isClear == false)
-            {
-                Debug.Log("option 2");
-                Instantiate(i, this.transform, worldPositionStays: false);
-            }
-            else if (isNight == true && isClear == true)
-            {
-                Debug.Log("option 3");
-                Instantiate(a, this.transform, worldPositionStays: false);
-            }
-            else if (isNight == true && isClear == false)
-            {
-                Debug.Log("option 4");
-                Instantiate(e, this.transform, worldPositionStays: false);
-            }
+            isGrown = true;
+            Debug.Log("Grown");
+            //SaveGrowthStatus();
         }
-        else
-        {
-            HarvestPlant();
-        }
-
-        void HarvestPlant()
-        {
-
-                Destroy(transform.GetChild(0).gameObject);
-
-        }
-
-
+        float timeSinceInitialization = Time.realtimeSinceStartup - initializationTime;
 
     }
 
-
-    //Detect if a click occurs
-
-    /*
-     * On click
-     * --------
-     * Play animation
-     * Play SFX
-     * Add to inventory
-     * Delete self
-     */
+    public void LoadData(GameData data)
+    {
+        this.initializationTime = data.smallPlantInitTime;
+    }
 }

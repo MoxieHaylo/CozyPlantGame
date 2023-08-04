@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 public class GetLocalWeatherData : MonoBehaviour
 {
-    public GameController gc;
+    public BackgroundAndLightsManager gc;
     #region Weather API Key
     const string OpenWeatherAPIKey = "ad376b17409c1eb42671a2592c7fd554";
     #endregion 
@@ -24,6 +24,7 @@ public class GetLocalWeatherData : MonoBehaviour
         Succeeded
     }
     public EPhase Phase { get; private set; } = EPhase.NotStarted;
+    public int sunsetTime;
 
     #region Classes to make Json info usuable
     //created by Iain McManus
@@ -341,7 +342,9 @@ public class GetLocalWeatherData : MonoBehaviour
                     WeatherData = JsonConvert.DeserializeObject<OpenWeatherResponse>(request.downloadHandler.text);
                 
                     Debug.Log($"You are in {WeatherData.CityName}");
-                    //Debug.Log(WeatherData.Internal_Sys.SunsetTime);
+                    //Debug.Log($"Sunset is at {WeatherData.Internal_Sys.SunsetTime}");
+                    sunsetTime = WeatherData.Internal_Sys.SunsetTime;
+                Debug.Log($"Sunset is at {sunsetTime}");
 
                 Phase = EPhase.Succeeded;
                 }
